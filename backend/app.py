@@ -56,6 +56,23 @@ def add_student():
         "inserted_id": str(result.inserted_id)
     }), 201
 
+@app.route('/submittodoitem', methods=['POST'])
+def submit_todo_item():
+
+    itemName = request.form.get('itemName')
+    itemDescription = request.form.get('itemDescription')
+
+    todo = {
+        "itemName": itemName,
+        "itemDescription": itemDescription
+    }
+
+    collection.insert_one(todo)
+
+    return jsonify({
+        "message": "Todo item saved successfully"
+    })
+
 
 if __name__ == "__main__":
     app.run(port=9000, debug=True)
